@@ -4,10 +4,10 @@
 #include <math.h>
 
 extern double ave_online(double val,double ave,int i){
-    return(ave*(i-1)) + val/i)
+    return(ave*(i-1)) + val/i;
 }
 extern double var_online(double val,double ave, double square_ave, int i){
-    return(((i-1)*square_ave/i) + pow(val,2)/i-pow((i-1)*ave/i+(val/i)))
+    return((i-1)*(square_ave/i) + pow(val,2)/i-pow((i-1)*ave/i+(val/i),2));
 }
 
 int main(void)
@@ -30,8 +30,9 @@ int main(void)
         fputs("File open error\n",stderr);
         exit(EXIT_FAILURE);
     }
-i=0
-    while(fgets(buf,sizeof(buf),fp) != NULL){
+i=0;
+    while(fgets(buf,sizeof(buf),fp) != NULL)
+    {
         sscanf(buf,"%lf",&val);
         i++;
         var = var_online(val,ave,square_ave,i);
