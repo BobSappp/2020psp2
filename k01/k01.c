@@ -38,7 +38,6 @@ i=0;
         var = var_online(val,ave,square_ave,i);
         ave = ave_online(square_ave,pow(val,2),i);
 
-    
 
 
 

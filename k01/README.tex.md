@@ -60,4 +60,3 @@ population variance (estimated)：
 
 ## 修正履歴
 
-？
