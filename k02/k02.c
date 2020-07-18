@@ -63,5 +63,6 @@ int main(void)
 double p_stdnorm(double z)
 {
     return 1/sqrt(2*M_PI) * exp(-z*z/2);
+    
 }
 

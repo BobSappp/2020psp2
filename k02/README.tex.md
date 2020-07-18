@@ -33,6 +33,7 @@ $$
   その値をwhile文でかけ合わせていき、尤もらしさをだす。
 ## 入出力結果
 
+
 ```
 Likelihood for A：
 Likelihood for B：
