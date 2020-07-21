@@ -8,6 +8,7 @@
 #include <time.h>
 #define RAND_SEED ((unsigned) time(NULL))
 #endif
+#define M_PI 3.14
 
 extern double r_unif(void);
 extern double r_stdnorm(void);
@@ -31,9 +32,9 @@ int main(int argc, char* argv[])
     printf("============================================\n");
 
     srand(RAND_SEED);
-    for(  ){
+    for( i=1;i<num_dummy;i++){
         /* r_stdnormを使って，1人のデータを捏造 */
-        dummy =   ;
+        dummy =r_stdnorm()*sigma+mu;
         printf("%5.2lf\n",dummy);
     }
 
