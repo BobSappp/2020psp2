@@ -43,8 +43,12 @@ $$u^2=\dfrac{1}{N-1}\sum_{i=1}^{N}\left(x_{i}-\bar{x}\right)^2=\dfrac{N}{N-1}s^2
 
 ## ソースコードの説明
 
-最初に分散と平均を求める関数を作る
-while文で関数を実行して
+6~12 最初に分散と平均を求める関数を作るvar_onlineとave_online
+16~20 引数の宣言
+
+34~50while文で関数でvar_onlineとave_onlineを計算する
+saveは二乗の平均
+53.54母集団の平均と分散の計算
 printfで出力
 
 ## 入出力結果
@@ -52,10 +56,10 @@ printfで出力
 ```
 input the filename of sample:../sample/heights_male.csv
 the filename of sample: ../sample/heights_male.csv
-sample mean：
-sample variance：
-population mean (estimated)：
-population variance (estimated)：
+sample mean：173.888750
+sample variance：-113.349078
+population mean (estimated)：173.888750
+population variance (estimated)：出力されませんでした
 ```
 
 ## 修正履歴

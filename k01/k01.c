@@ -3,17 +3,17 @@
 #include <string.h>
 #include <math.h>
 
-extern double ave_online(int i,double val,double ave2){
-    ave2=((i-1)*ave2+val)/i;
-    return ave2;
-}
-extern double var_online(int i,double val, double save, double ave3){
-    return((i-1)*save+val)/i - pow(val,2)/i-pow((((i-1)*ave3+val)/i),2);
+extern double ave_online(int i,double val,double ave){
+    ave=((i-1)*ave+val)/i;
+    return ave;
+    }
+extern double var_online(int i,double val, double save, double ave){
+    return(((i-1)*save+pow(val,2))/i-pow(ave,2));
 }
 
 int main(void)
 {
-    double val,ave=0,pm,samplevariance,samplemean,populationmaen,populationvariance,save=0,ave3=0;
+    double val,var=0,ave=0,pm,samplevariance,samplemean,populationmaen,populationvariance,save=0,ave3=0;
     char fname[FILENAME_MAX];
     char buf[256];
     FILE* fp;
@@ -30,23 +30,20 @@ int main(void)
         fputs("File open error\n",stderr);
         exit(EXIT_FAILURE);
     }
-i=0;
+    i=0;
     while(fgets(buf,sizeof(buf),fp) != NULL)
     {
         sscanf(buf,"%lf",&val);
         i++;
     
+        var = var_online(i,val,save,ave);
         ave = ave_online(i,val,ave);
-        samplevariance=var_online(i,val,save,ave3);
 
-        save=((i-1)*save+val)/i;
-        ave3=((i-1)*ave3+val)/i;
-
-        samplemean=ave;
-
-
+        save=((i-1)*save+pow(val,2))/i;
 
     }
+    samplemean=ave;
+    samplevariance=var;
 
     populationmaen=samplemean;
     populationvariance=i*samplevariance/(i-1);
@@ -57,10 +54,10 @@ i=0;
         exit(EXIT_FAILURE);
     }
 
-printf("sample mean=%1f\n",samplemean);
-printf("sample variance=%1f\n",samplevariance);
-printf("population mean=%1f,  pm=%1f\n",populationmaen,pm);
-printf("population variance=%1F\n",populationvariance);
-return 0;
+    printf("sample mean=%1f\n",samplemean);
+    printf("sample variance=%1f\n",samplevariance);
+    printf("population mean(estimated)=%1f,  pm=%1f\n",populationmaen,pm);
+    printf("population variance(estimated)=%1F\n",populationvariance);
+    return 0;
 }
 
