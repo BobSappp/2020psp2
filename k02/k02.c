@@ -9,16 +9,14 @@ extern double p_stdnorm(double z);
 #define Mu_B 169.7
 #define sigma_A 5.43
 #define sigma_B 5.5
-#define M_PI 3.14
 
 int main(void)
 {
-    int z1, z2, x1, x2, u1, u2, b1, b2, max_val=1, min_val=1;
+    double Likelihood_A=1, Likelihood_B=1;
     double val;
     char fname[FILENAME_MAX];
     char buf[256];
     FILE* fp;
-    double L1=1,L2=1;
 
     printf("input the filename of sample:");
     fgets(fname,sizeof(fname),stdin);
@@ -34,15 +32,8 @@ int main(void)
     while(fgets(buf,sizeof(buf),fp) != NULL){
         sscanf(buf,"%lf",&val);
 
-        z1=(val-u1)/b1;
-        z2=(val-u2)/b2;
-        x1=p_stdnorm(z1);
-        x2=p_stdnorm(z2);
-        max_val=max_val*x1;
-        min_val=min_val*x2;
-
-    
-
+        Likelihood_A=Likelihood_A*p_stdnorm((val-Mu_A)/sigma_A);
+        Likelihood_B=Likelihood_B*p_stdnorm((val-Mu_B)/sigma_B);
 
 
     }
@@ -52,8 +43,8 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    printf("L_A: %f\n",max_val);
-    printf("L_B: %f\n",min_val);
+    printf("L_A: %f\n",Likelihood_A);
+    printf("L_B: %f\n",Likelihood_B);
 
     return 0;
 
