@@ -57,9 +57,9 @@ printfで出力
 input the filename of sample:../sample/heights_male.csv
 the filename of sample: ../sample/heights_male.csv
 sample mean：173.888750
-sample variance：-22859.947114
-population mean (estimated)：#IND00~-1.#IND00
-population variance (estimated):出力されませんでした
+sample variance：25.361711
+population mean (estimated)：175.792195~171.985305
+population variance (estimated):28.984813
 ```
 
 ## 修正履歴

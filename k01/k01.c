@@ -41,7 +41,7 @@ int main(void)
         i++;
     
         var = var_online(save,ave,i,val);
-        save = ave_online(i,val*val,ave);
+        save = ave_online(i,val*val,save);
         ave = ave_online(i,val,ave);
       
        
@@ -61,7 +61,7 @@ int main(void)
     printf("sample mean=%1f\n",ave);
     printf("sample variance=%1f\n",var);
     printf("population mean(estimated)%1f~%1f\n",ave_high, ave_low);
-    printf("population variance(estimated)=%1F\n",populationvariance);
+    printf("population variance(estimated)=%1f\n",populationvariance);
     return 0;
 }
 
