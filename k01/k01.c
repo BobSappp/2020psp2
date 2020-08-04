@@ -4,20 +4,21 @@
 #include <math.h>
 
 extern double ave_online(int i,double val,double ave){
-    ave=((i-1)*ave+val)/i;
-    return ave;
+    return((i-1)*ave+val)/i;
     }
-extern double var_online(int i,double val, double save, double ave){
-    return(((i-1)*save+pow(val,2))/i-pow(ave,2));
+
+extern double var_online(double save, double ave,int i,double val){
+    return((i-1)*save/i+(val*val)/i-pow((i-1)*ave/i+val/i,2));
 }
 
 int main(void)
 {
-    double val,var=0,ave=0,pm,samplevariance,samplemean,populationmaen,populationvariance,save=0,ave3=0;
+    double val,var=0,ave=0,save=0,ave_high,ave_low,e;
+    double  populationvariance;
     char fname[FILENAME_MAX];
     char buf[256];
     FILE* fp;
-    int i=0;
+    int i;
 
 
     printf("input the filename of sample:");
@@ -31,32 +32,35 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     i=0;
+
+    
+    printf("save:%f\n", save);
     while(fgets(buf,sizeof(buf),fp) != NULL)
     {
         sscanf(buf,"%lf",&val);
         i++;
     
-        var = var_online(i,val,save,ave);
+        var = var_online(save,ave,i,val);
+        save = ave_online(i,val*val,ave);
         ave = ave_online(i,val,ave);
-
-        save=((i-1)*save+pow(val,2))/i;
-
+      
+       
     }
-    samplemean=ave;
-    samplevariance=var;
 
-    populationmaen=samplemean;
-    populationvariance=i*samplevariance/(i-1);
+    populationvariance=i*var/(i-1);
+    e=sqrt(populationvariance/i);
+    ave_high=ave+e;
+    ave_low=ave-e;
 
-    pm=pow(populationvariance/i,0.5);
+
     if(fclose(fp) == EOF){
         fputs("file close error\n",stderr);
         exit(EXIT_FAILURE);
     }
 
-    printf("sample mean=%1f\n",samplemean);
-    printf("sample variance=%1f\n",samplevariance);
-    printf("population mean(estimated)=%1f,  pm=%1f\n",populationmaen,pm);
+    printf("sample mean=%1f\n",ave);
+    printf("sample variance=%1f\n",var);
+    printf("population mean(estimated)%1f~%1f\n",ave_high, ave_low);
     printf("population variance(estimated)=%1F\n",populationvariance);
     return 0;
 }
