@@ -3,11 +3,11 @@
 #include <string.h>
 #include <math.h>
 
-extern double ave_online(int i,double val,double ave){
+double ave_online(int i,double val,double ave){
     return((i-1)*ave+val)/i;
     }
 
-extern double var_online(double save, double ave,int i,double val){
+double var_online(double save, double ave,int i,double val){
     return((i-1)*save/i+(val*val)/i-pow((i-1)*ave/i+val/i,2));
 }
 
